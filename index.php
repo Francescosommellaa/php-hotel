@@ -51,14 +51,45 @@ $hotels = [
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PHP Hotel</title>
 
-    <link rel="stylesheet" href="style.css">
+    <!-- bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 </head>
 
-<body>
+<body class="container">
 
-    <div class="container">
+    <form action="">
 
-    </div>
+        Voto:
+
+        <?php for ($i = 0; $i <= 5; $i++) : ?>
+            <input type="radio" class="form-check-input" name="vote" id="vote<?php echo $i ?>" value="<?php echo $i ?>">
+            <label class="form-check-label me-3" for="vote<?php echo $i ?>"><?php echo $i ?></label>
+        <?php endfor; ?>
+    </form>
+
+    <table class="table">
+        <thead>
+            <th scope="col">Nome</th>
+            <th scope="col">Descrizione</th>
+            <th scope="col">Parcheggio</th>
+            <th scope="col">Voto</th>
+            <th scope="col">Distanza dal centro</th>
+        </thead>
+        <tbody>
+
+            <?php foreach ($hotels as $hotel) : ?>
+                <tr>
+                    <td><?php echo $hotel['name'] ?></td>
+                    <td><?php echo $hotel['description'] ?></td>
+                    <td><?php echo $hotel['parking'] ? 'Sì' : 'No' ?></td>
+                    <td><?php echo $hotel['vote'] ?></td>
+                    <td>KM. <?php echo $hotel['distance_to_center'] ?></td>
+                </tr>
+            <?php endforeach; ?>
+        </tbody>
+
+
+    </table>
 </body>
 
 </html>
