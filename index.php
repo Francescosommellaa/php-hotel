@@ -40,6 +40,17 @@ $hotels = [
 
 ];
 
+$filter_hotels = $hotels;
+
+if (isset($_GET['parking'])) {
+    foreach ($hotels as $hotel) {
+        if ($hotel['parking']) {
+            $filter_hotels[] = $hotel;
+        }
+    }
+} else {
+    $filter_hotels = $hotels;
+}
 ?>
 
 
@@ -56,15 +67,24 @@ $hotels = [
 </head>
 
 <body class="container">
+    <h1>PHP Hotel</h1>
 
-    <form action="">
+    <form action="index.php" method="GET">
+        <div class="d-flex">
 
-        Voto:
+            <input type="checkbox" id="parking" class="form-ceck-input">
+            <labe for="parking" class="form-ceck-label">
+                Solo con parcheggio
+                </label>
 
-        <?php for ($i = 0; $i <= 5; $i++) : ?>
-            <input type="radio" class="form-check-input" name="vote" id="vote<?php echo $i ?>" value="<?php echo $i ?>">
-            <label class="form-check-label me-3" for="vote<?php echo $i ?>"><?php echo $i ?></label>
-        <?php endfor; ?>
+                Voto:
+
+                <?php for ($i = 0; $i <= 5; $i++) : ?>
+                    <input type="radio" class="form-check-input" name="vote" id="vote<?php echo $i ?>" value="<?php echo $i ?>">
+                    <label class="form-check-label me-3" for="vote<?php echo $i ?>"><?php echo $i ?></label>
+                <?php endfor; ?>
+
+        </div>
     </form>
 
     <table class="table">
