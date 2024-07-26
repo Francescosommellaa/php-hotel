@@ -40,16 +40,22 @@ $hotels = [
 
 ];
 
+$vote = isset($_GET['vote']) ? $_GET['vote'] : 0;
+
 $filter_hotels = [];
 
-if (isset($_POST['parking'])) {
+if (!isset($_GET['parking'])) {
     foreach ($hotels as $hotel) {
-        if ($hotel['parking']) {
+        if ($hotel['vote'] >= $vote) {
             $filter_hotels[] = $hotel;
         }
     }
 } else {
-    $filter_hotels = $hotels;
+    foreach ($hotels as $hotel) {
+        if ($hotel['parking'] && $hotel['vote'] >= $vote) {
+            $filter_hotels[] = $hotel;
+        }
+    }
 }
 ?>
 
@@ -69,7 +75,7 @@ if (isset($_POST['parking'])) {
 <body class="container">
     <h1>PHP Hotel</h1>
 
-    <form action="index.php" method="POST">
+    <form action="index.php" method="GET">
         <div class="d-flex">
 
             <input type="checkbox" id="parking" class="form-ceck-input" name="parking">
@@ -97,7 +103,7 @@ if (isset($_POST['parking'])) {
         </thead>
         <tbody>
 
-            <?php foreach ($hotels as $hotel) : ?>
+            <?php foreach ($filter_hotels as $hotel) : ?>
                 <tr>
                     <td><?php echo $hotel['name'] ?></td>
                     <td><?php echo $hotel['description'] ?></td>
